@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "SodaItem": {
+      "title": "SodaItem",
+      "description": "Flavour document for SODA category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 128, "description": "Flavour name" },
+        "description": { "type": "string", "maxLength": 500, "description": "Flavour description and notes" },
+        "price": { "type": "number", "description": "Price in INR" },
+        "image": { "type": "string", "maxLength": 1024, "description": "Product image URL" },
+        "available": { "type": "boolean", "description": "Availability state" },
+        "sortOrder": { "type": "number", "description": "Sort order ranking" }
+      },
+      "required": ["name", "description", "price", "available", "sortOrder"]
+    },
+    "ColdCoffeeItem": {
+      "title": "ColdCoffeeItem",
+      "description": "Single document for COLD COFFEE category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 128, "description": "Item name" },
+        "description": { "type": "string", "maxLength": 500, "description": "Item description" },
+        "price": { "type": "number", "description": "Price in INR" },
+        "image": { "type": "string", "maxLength": 1024, "description": "Product image URL" },
+        "available": { "type": "boolean", "description": "Availability state" }
+      },
+      "required": ["name", "description", "price", "available"]
+    },
+    "SoftyItem": {
+      "title": "SoftyItem",
+      "description": "Flavour document for SOFTY category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 128, "description": "Flavour name" },
+        "price": { "type": "number", "description": "Price in INR" },
+        "image": { "type": "string", "maxLength": 1024, "description": "Product image URL" },
+        "available": { "type": "boolean", "description": "Availability state" },
+        "sortOrder": { "type": "number", "description": "Sort order ranking" }
+      },
+      "required": ["name", "price", "available", "sortOrder"]
+    },
+    "ShopSettings": {
+      "title": "ShopSettings",
+      "description": "Public establishment metadata and payment configuration",
+      "type": "object",
+      "properties": {
+        "shopName": { "type": "string", "maxLength": 128, "description": "Store branding name" },
+        "tagline": { "type": "string", "maxLength": 256, "description": "Brand slogan or category highlight" },
+        "address": { "type": "string", "maxLength": 512, "description": "Physical shop location" },
+        "googleMapsUrl": { "type": "string", "maxLength": 1024, "description": "Link to Google Maps location" },
+        "upiId": { "type": "string", "maxLength": 128, "description": "Merchant VPA UPI ID for customer payments" }
+      },
+      "required": ["shopName", "address", "upiId"]
+    }
+  },
+  "firestore": {
+    "/menu/soda/items/{itemId}": {
+      "schema": "SodaItem",
+      "description": "Soda flavour items"
+    },
+    "/menu/coldCoffee": {
+      "schema": "ColdCoffeeItem",
+      "description": "Single cold coffee item"
+    },
+    "/menu/softy/items/{itemId}": {
+      "schema": "SoftyItem",
+      "description": "Softy flavour items"
+    },
+    "/menu/{itemId}": {
+      "schema": "SodaItem",
+      "description": "Direct catalog document representation for fast unified queries"
+    },
+    "/settings/{settingId}": {
+      "schema": "ShopSettings",
+      "description": "Brand settings and merchant payment coordinates"
+    }
+  }
+}

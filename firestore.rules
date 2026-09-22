@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Menu items: public read access for all customers, write enabled for catalog management
+    match /menu/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Top-level category collections (for backwards compatibility)
+    match /soda/{document=**} {
+      allow read, write: if true;
+    }
+    match /coldCoffee/{document=**} {
+      allow read, write: if true;
+    }
+    match /softy/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Shop settings: public read and write for store configuration
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Default deny for everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

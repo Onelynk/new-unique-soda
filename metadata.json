@@ -1,0 +1,6 @@
+{
+  "name": "Unique Soda",
+  "description": "Virtual menu card and digital business card experience for artisanal craft sodas, cold coffees, and luxury soft serve.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
