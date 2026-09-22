@@ -37,12 +37,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       <div className="relative max-w-xl mx-auto flex flex-col items-center z-10">
         
-        {/* Friendly Shop Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 mb-5 rounded-full bg-[#1b0d2a]/90 border border-purple-800/40 text-xs font-mono tracking-widest text-[#d8b4fe] uppercase shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>OPEN TONIGHT · BEST ENJOYED COLD 🧊</span>
-        </div>
-
         {/* Section 04: NEW UNIQUE COLD DRINKS */}
         <h1 className="font-serif text-4xl sm:text-6xl font-normal text-[#fdf8f4] tracking-wide leading-tight mb-2 uppercase">
           NEW UNIQUE <br />

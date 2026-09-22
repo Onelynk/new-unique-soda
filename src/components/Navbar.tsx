@@ -1,7 +1,7 @@
 import React from 'react';
 import { BRAND_INFO } from '../data/brandData';
 import { MainTab } from '../types';
-import { QrCode, Share2, MapPin } from 'lucide-react';
+import { QrCode, Share2 } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: MainTab;
@@ -20,19 +20,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0a0712]/95 backdrop-blur-md border-b border-purple-900/30 transition-all duration-200">
-      {/* Top warm micro bar */}
-      <div className="hidden sm:flex items-center justify-between px-6 py-1.5 text-xs font-mono text-[#bfa9d6] border-b border-purple-950/40 bg-[#12081f]">
-        <div className="flex items-center gap-2.5">
-          <span className="text-amber-300 font-semibold">📍 Linking Road, Bandra West</span>
-          <span>•</span>
-          <span>{BRAND_INFO.hours.weekdays}</span>
-        </div>
-        <div className="flex items-center gap-2 text-purple-200">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400" />
-          <span>OPEN TONIGHT · BEST ENJOYED COLD 🧊</span>
-        </div>
-      </div>
-
       <div className="max-w-5xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand identity */}
         <button
