@@ -1,9 +1,11 @@
 /**
  * Automatically determines the current deployed website URL for QR code and Share functionality.
- * Respects user instruction: "Keep QR/share using the current deployed Vercel URL, not localhost or preview URLs."
+ * Default canonical URL: https://new-unique-soda.vercel.app
  */
+export const OFFICIAL_PRODUCTION_URL = 'https://new-unique-soda.vercel.app';
+
 export function getRuntimeMenuUrl(): string {
-  // If explicitly configured via environment variable
+  // 1. If explicitly configured via environment variable
   const envUrl = (
     import.meta.env.VITE_PUBLIC_SITE_URL ||
     import.meta.env.VITE_SITE_URL ||
@@ -13,25 +15,27 @@ export function getRuntimeMenuUrl(): string {
     return envUrl.replace(/\/+$/, '');
   }
 
-  // If Vercel URL is available from environment
-  const vercelEnvUrl = (import.meta.env.VITE_VERCEL_URL || '').trim();
-  if (vercelEnvUrl) {
-    return `https://${vercelEnvUrl.replace(/\/+$/, '')}`;
-  }
-
+  // 2. Check current browser hostname if loaded in production
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
-    // Check if running on localhost or inside a cloud/preview iframe sandbox
-    const isLocalOrPreview =
+
+    // Detect ephemeral Vercel preview or branch deployment domains
+    // (e.g. *-projects.vercel.app or hash-based deployment links)
+    const isVercelPreviewOrEphemeral =
+      hostname.includes('-projects.vercel.app') ||
+      (hostname.endsWith('.vercel.app') && hostname !== 'new-unique-soda.vercel.app');
+
+    const isLocalOrDev =
       hostname === 'localhost' ||
       hostname === '127.0.0.1' ||
       hostname.endsWith('.internal') ||
       hostname.includes('googleusercontent.com') ||
       hostname.includes('cloudworkstations.dev') ||
+      hostname.includes('run.app') ||
       hostname.includes('aistudio');
 
-    if (!isLocalOrPreview) {
-      // Running on actual production domain or deployed vercel.app
+    if (!isLocalOrDev && !isVercelPreviewOrEphemeral) {
+      // User is on the official production domain or a custom root domain
       let pathname = window.location.pathname;
       if (pathname.length > 1 && pathname.endsWith('/')) {
         pathname = pathname.slice(0, -1);
@@ -40,7 +44,7 @@ export function getRuntimeMenuUrl(): string {
     }
   }
 
-  // Production Vercel URL fallback for preview and local development
-  return 'https://unique-soda.vercel.app';
+  // 3. Always fallback to the official production URL
+  return OFFICIAL_PRODUCTION_URL;
 }
 
