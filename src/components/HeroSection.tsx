@@ -109,7 +109,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               Today's flavours
             </div>
             <div className="text-[10px] font-mono text-[#8d79a5] mt-1">
-              from ₹60
+              from ₹20
             </div>
           </button>
         </div>
